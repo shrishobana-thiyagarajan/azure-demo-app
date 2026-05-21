@@ -4,6 +4,7 @@
 This project demonstrates an end-to-end deployment of a Node.js application using Azure App Service with GitHub Actions CI/CD.
 
 Whenever code is pushed to GitHub, the application is automatically built and deployed to Azure.
+Copied the secret from Azure from demo/app publish setting added the variables.
 
 ---
 
