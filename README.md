@@ -92,14 +92,71 @@ Your GitHub will show:
 ✔ Live app link  
 ✔ Screenshot  
 ✔ DevOps explanation  
-
-👉 This is **perfect for interview + portfolio**
+////////////////////////////////////////////////////////////
 
 ---
 
-# 🔥 PRO TIP (to impress recruiter)
+# 🔥 Added another way to do
+
+## ✅ What this project demonstrates
+
+### 1) Azure App Service (working)
+- Node.js app deployed to Azure App Service
+- CI/CD via GitHub deployment workflow (publish profile)
+- Fix: App listens on `process.env.PORT` (required by Azure)
+
+### 2) Container build in Azure Container Registry (working)
+- Docker image built in Azure using `az acr build` directly from GitHub repo (no local Docker required)
+
+### 3) AKS (cluster created + kubectl connected)
+- AKS cluster created successfully
+- In this environment, Kubernetes RBAC restrictions prevented creating deployments/services/secrets (`server rejected our request`)
+- The repo includes Kubernetes manifests that work in unrestricted clusters.
+
+---
+
+## 🏗️ Architecture
+
+GitHub → CI/CD → Azure App Service → Live Web App
+
+**App Service path**
+**AKS path**
+GitHub → ACR build → Container Image → AKS → Deployment → Service → Public IP
+---
+
+## 📂 Repo structure
+---
+
+## ▶️ Run locally
+
+```bash
+npm install
+npm start
+Open: http://localhost:3000
+
+Build container image in Azure (Cloud Shell)
+
+Prerequisites: Azure Container Registry (ACR) + repo contains Dockerfile
+
+chmod +x scripts/cloudshell-acr-build.sh
+./scripts/cloudshell-acr-build.sh
+
+Create AKS + connect (Cloud Shell)
+chmod +x scripts/cloudshell-aks-create.sh
+./scripts/cloudshell-aks-create.sh
+
+Deploy to AKS (works in unrestricted RBAC clusters)
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl get pods
+kubectl get svc
 
 Add one more line at top:
 
 ```md
 > ✅ Built during hands-on Azure cloud practice with CI/CD pipeline integration
+## 8) After you finish, destroy resources (what you asked)
+Run your cleanup script:
+
+```bash
+./scripts/cleanup.sh
